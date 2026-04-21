@@ -75,10 +75,10 @@ A skill package that teaches Claude the correct Nav3 patterns.
 Then ask Claude anything Nav3-related:
 
 ```
-"Nav3로 탭 네비게이션 만들어줘"
-"Nav2 → Nav3 마이그레이션 도와줘"
-"내 Nav3 코드 리뷰해줘"
-"Dialog를 BottomSheet로 바꿔줘"
+"Build tab navigation with Nav3"
+"Help me migrate from Nav2 to Nav3"
+"Review my Nav3 code"
+"Convert this Dialog into a BottomSheet"
 ```
 
 ## Build the Sample App
