@@ -1,5 +1,15 @@
 {
   "name": "nav3-marketplace",
-  "owner": { "name": "manjees", "url": "https://github.com/manjees" },
-  "plugins": [{ "name": "nav3", "source": "." }]
+  "owner": {
+    "name": "manjees",
+    "url": "https://github.com/manjees"
+  },
+  "plugins": [
+    {
+      "name": "nav3",
+      "source": "./",
+      "description": "Navigation 3 skills and agents for Android Compose. Setup, backstack, scenes (Dialog/BottomSheet/ListDetail/TwoPane), modularization, Nav2→Nav3 migration, code review.",
+      "version": "1.0.0"
+    }
+  ]
 }
