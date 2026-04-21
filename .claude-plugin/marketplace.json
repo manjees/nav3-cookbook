@@ -1,0 +1,5 @@
+{
+  "name": "nav3-marketplace",
+  "owner": { "name": "manjees", "url": "https://github.com/manjees" },
+  "plugins": [{ "name": "nav3", "source": "." }]
+}

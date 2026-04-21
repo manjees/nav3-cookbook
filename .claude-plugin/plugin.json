@@ -1,0 +1,9 @@
+{
+  "name": "nav3",
+  "version": "1.0.0",
+  "description": "Navigation 3 skills and agents for Android Compose. Setup, backstack, scenes (Dialog/BottomSheet/ListDetail/TwoPane), modularization, Nav2→Nav3 migration, code review.",
+  "author": { "name": "manjees", "url": "https://github.com/manjees" },
+  "keywords": ["android", "navigation3", "nav3", "compose", "kotlin", "jetpack", "scene", "adaptive"],
+  "repository": "https://github.com/manjees/nav3-cookbook",
+  "license": "Apache-2.0"
+}
