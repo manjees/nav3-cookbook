@@ -1,6 +1,7 @@
 ---
 name: nav3-scenes
 description: "Complete guide to the Navigation 3 Scene system. Covers Scene, SceneStrategy, SceneDecoratorStrategy, OverlayScene, Dialog, BottomSheet, ListDetail (custom / Material3), TwoPane, SupportingPane, transition animations, and SharedTransition. Use this skill for adaptive layouts, scene decorators, bottom sheets, dialog screens, and custom animations. Use when the user asks 'add bottom sheet', 'dialog screen', 'adaptive layout', 'list-detail', 'two pane', 'custom scene animation', '바텀시트 추가', '다이얼로그', '어댑티브 레이아웃', '씬 데코레이터'."
+license: Apache-2.0
 ---
 
 ## Scene System Core Concepts

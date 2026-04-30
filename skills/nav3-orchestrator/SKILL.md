@@ -1,6 +1,7 @@
 ---
 name: nav3-orchestrator
 description: "Orchestrator for all Navigation 3 (Nav3) related Android work. Covers NavKey, NavDisplay, NavEntry, BackStack, Scene, SceneStrategy, BottomSheet, Dialog, deep links, multi back stacks, adaptive layouts, ListDetail, TwoPane, animations, modularization, Nav2 to Nav3 migration, ViewModel scoping, conditional navigation, and screen transitions. Use this skill for any Nav3 related task. Simple concept questions (e.g. 'what is NavKey?') can be answered directly. Reruns, updates, partial fixes, and improvements of prior results are also handled here. Use when the user asks 'orchestrate Nav3 work', 'design Nav3 feature', 'Nav3 화면 만들어줘', 'Nav3 구현해줘', '네비게이션 설계', '화면 이동 구현', '백스택 설계'."
+license: Apache-2.0
 ---
 
 ## Execution Mode: Hybrid

@@ -1,6 +1,7 @@
 ---
 name: nav3-review
 description: "Navigation 3 code review and anti-pattern detection. Finds bugs, anti-patterns, Nav2 remnants, and performance issues in Nav3 code and suggests fixes. Use when the user asks 'review Nav3 code', 'find anti-patterns', 'check for Nav3 bugs', 'is dropUnlessResumed used correctly', 'audit back stack code', 'Nav3 코드 리뷰해줘', '안티패턴 찾아줘', 'Nav3 관련 버그 체크', 'dropUnlessResumed 맞게 썼나', '백스택 코드 검토'."
+license: Apache-2.0
 ---
 
 ## Review Process

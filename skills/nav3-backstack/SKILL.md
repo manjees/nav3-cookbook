@@ -1,6 +1,7 @@
 ---
 name: nav3-backstack
 description: "Complete guide to implementing Navigation 3 back stacks. Covers NavKey definitions, entryProvider, NavDisplay, rememberNavBackStack, state saving, ViewModel scoping (per NavEntry), entryDecorators setup, multi back stacks, conditional navigation, returning results, passing arguments to ViewModels, and deep link parsing. Always reference this skill when writing Nav3 code. Use when the user asks 'implement back stack', 'add Nav3 screen', 'scope ViewModel per screen', 'multi back stack', 'conditional navigation', '백스택 구현', '화면 추가', 'NavKey 정의', 'ViewModel 스코핑'."
+license: Apache-2.0
 ---
 
 ## Core Pattern — Minimal Working Code

@@ -1,6 +1,7 @@
 ---
 name: nav3-patterns
 description: "Guide to advanced Navigation 3 patterns. Covers modularization (api/impl separation, Hilt/Koin DI), Nav2 to Nav3 migration, common UI patterns (bottom navigation + multi back stacks), and shared Scaffold patterns. Use when the user asks 'modularize navigation', 'migrate from Nav2 to Nav3', 'split navigation with Hilt', 'implement tab navigation', 'common UI pattern', '모듈화해줘', 'Nav2에서 Nav3로 마이그레이션', 'Hilt로 네비게이션 분리', '탭 네비게이션 구현', 'common UI 패턴'."
+license: Apache-2.0
 ---
 
 ## Modularization — api/impl Pattern

@@ -1,6 +1,7 @@
 ---
 name: nav3-setup
 description: "Navigation 3 dependency setup, Gradle additions, version catalog updates, compileSdk 36 configuration, KotlinX Serialization plugin — all Nav3 project initialization work. Use when the user asks 'set up Nav3', 'add Nav3 dependency', 'add navigation3 to Gradle', 'update libs.versions.toml', 'Nav3 설정해줘', '의존성 추가', 'Gradle에 Navigation 추가', 'libs.versions.toml 업데이트'."
+license: Apache-2.0
 ---
 
 ## Nav3 Dependency Setup Guide

@@ -41,6 +41,8 @@ NavDisplay(
 
 ## 구성
 
+**Agent Skills 라이브러리** ([agentskills.io](https://agentskills.io) 표준), Claude Code 플러그인으로 배포. 샘플 앱이 스킬에 나오는 모든 패턴을 그대로 씁니다.
+
 ### 1. 실행 가능한 샘플 앱
 
 Nav3의 핵심 패턴을 보여주는 3개 화면:
@@ -53,9 +55,9 @@ Nav3의 핵심 패턴을 보여주는 3개 화면:
 
 Nav3 1.1.0, compileSdk 36, Kotlin 2.0+으로 빌드.
 
-### 2. Claude Code 플러그인
+### 2. Agent Skills (Claude Code 플러그인)
 
-올바른 Nav3 패턴을 Claude에게 가르치는 스킬 패키지.
+Claude에게 올바른 Nav3 패턴을 가르치는 `SKILL.md` 6개.
 
 | 스킬 | 역할 |
 |------|------|
@@ -66,7 +68,9 @@ Nav3 1.1.0, compileSdk 36, Kotlin 2.0+으로 빌드.
 | `nav3-patterns` | 모듈화 (Hilt/Koin), Nav2→Nav3 마이그레이션 |
 | `nav3-review` | 코드 리뷰: 안티패턴 10개, Critical/High/Medium 체크리스트 |
 
-## 플러그인 설치
+## 설치
+
+### Claude Code (권장)
 
 ```
 /plugin install nav3@nav3-marketplace
@@ -81,6 +85,19 @@ Nav3 1.1.0, compileSdk 36, Kotlin 2.0+으로 빌드.
 "Dialog를 BottomSheet로 바꿔줘"
 ```
 
+### 다른 에이전트 런타임
+
+`skills/` 디렉토리는 [agentskills.io 스펙](https://agentskills.io/specification)을 따릅니다 — Anthropic이 만든 오픈 표준이고, [35+ 런타임](https://agentskills.io/clients)이 채택했습니다. **Firebender** (Android 전용), **Cursor**, **GitHub Copilot**, **JetBrains Junie**, **OpenAI Codex**, **Gemini CLI** 등.
+
+이 중 어디든 그대로 넣어 쓸 수 있습니다:
+
+```bash
+git clone https://github.com/manjees/nav3-cookbook.git
+cp -r nav3-cookbook/skills/* <your-agent-skills-directory>/
+```
+
+직접 테스트해본 건 Claude Code뿐이에요. 다른 런타임이 안 되면 [이슈](https://github.com/manjees/nav3-cookbook/issues)로 알려주세요.
+
 ## 샘플 앱 빌드
 
 **요구사항:** Android Studio Meerkat+, Java 17+
@@ -94,6 +111,81 @@ cd nav3-cookbook
 > **참고:** Nav3의 `lifecycle-viewmodel-navigation3`와 `adaptive-navigation3`는 아직 알파 단계입니다.
 > README 상단 뱃지가 테스트된 버전을 나타냅니다.
 > API가 변경되면 [CHANGELOG.md](CHANGELOG.md)를 확인하세요.
+
+## 핵심 Nav3 원칙
+
+Nav3 코드베이스마다 매번 나오는 것들. 스킬이 체크하고, 샘플 앱이 그대로 씁니다.
+
+### 1. Nav3에는 NavController가 없습니다
+
+백스택은 그냥 리스트입니다. `androidx.navigation.compose.*`는 Nav2 API라 import하지 마세요.
+
+```kotlin
+// ❌ Nav2
+val navController = rememberNavController()
+
+// ✅ Nav3
+val backStack = rememberNavBackStack(HomeKey)
+```
+
+### 2. 네비게이션 호출은 `dropUnlessResumed`로 감쌉니다
+
+이거 안 쓰면 빠른 더블탭에 같은 화면이 두 번 push됩니다.
+
+```kotlin
+// ❌ 버그: 더블탭 시 두 번 이동
+Button(onClick = { backStack.add(DetailKey("123")) })
+
+// ✅ 수정
+Button(onClick = dropUnlessResumed { backStack.add(DetailKey("123")) })
+```
+
+### 3. `rememberSaveableStateHolderNavEntryDecorator`는 첫 번째여야 합니다
+
+안 그러면 화면 회전 시 `rememberSaveable` 복원이 깨집니다.
+
+```kotlin
+NavDisplay(
+    entryDecorators = listOf(
+        rememberSaveableStateHolderNavEntryDecorator(), // ← 반드시 첫 번째
+        rememberViewModelStoreNavEntryDecorator()
+    ),
+    ...
+)
+```
+
+### 4. Dialog/BottomSheet 씬은 `OverlayScene`을 구현해야 합니다
+
+안 그러면 `SceneDecoratorStrategy`가 다이얼로그를 호스트 스캐폴드로 감싸버립니다.
+
+```kotlin
+// ❌ 버그: 다이얼로그 뒤로 앱바가 보임
+class MyDialogScene<T : Any>(...) : Scene<T>
+
+// ✅ 수정: 데코레이터 체인을 건너뜀
+class MyDialogScene<T : Any>(...) : OverlayScene<T>
+```
+
+### 5. 멀티탭은 탭별 백스택이 필요합니다
+
+백스택 하나로 다 처리하면 탭 전환할 때 히스토리가 날아갑니다. 탭당 `rememberNavBackStack` 하나씩 두고 `NavDisplay`가 읽을 것만 바꿉니다.
+
+```kotlin
+// ❌ 버그: 탭 전환이 히스토리를 날림
+val backStack = rememberNavBackStack(HomeKey)
+
+// ✅ 수정: 탭당 하나의 스택 (app/src/main/java/com/nav3cookbook/sample/multitab/NavigationState.kt 참고)
+val backStacks = tabs.associateWith { tab -> rememberNavBackStack(tab) }
+val currentBackStack = backStacks.getValue(activeTab)
+```
+
+전체 목록 → [`skills/nav3-review/SKILL.md`](skills/nav3-review/SKILL.md)
+
+## 범위
+
+**In scope:** Android의 Nav3 1.1.0+, Compose, KotlinX Serialization. Material3 `ListDetailSceneStrategy` 기반 어댑티브 레이아웃. `NavEntry` 단위 ViewModel 스코핑.
+
+**Out of scope:** Nav2, Compose Multiplatform iOS/Desktop 타겟, AndroidX Navigation 위에 올린 커스텀 네비게이션 라이브러리.
 
 ## 질문 & 피드백
 
